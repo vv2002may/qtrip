@@ -5,7 +5,7 @@ const adventuresController = {
    async adventures (req, res)  {
       try {
          const { city,q } = req.query;
-         if (city.length < 3) {
+         if (city && city.length < 3) {
             return res.status(404).json({
                success: false,
                message:`Adventure Query length should be atleast 3! Currently it is only ${city.length} `
@@ -19,10 +19,7 @@ const adventuresController = {
             }]
          });
          if (adventure.length>0) {
-            return res.json({
-               success:true,
-               data:adventure,
-            })
+            return res.json(adventure)
          }
          else {
             return res.status(400).json({
