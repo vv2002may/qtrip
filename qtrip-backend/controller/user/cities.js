@@ -1,4 +1,4 @@
-const { citiesData } = require("../models");
+const { citiesData } = require("../../models");
 
 const cities = async (req, res) => {
    try {

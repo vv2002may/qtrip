@@ -1,7 +1,9 @@
-const cities = require("./cities");
-const login = require("./login");
-const register = require("./register");
+const cities = require("./user/cities");
+const login = require("./user/login");
+const register = require("./user/register");
+const adventuresController = require("./user/adventuresController");
+const reservationsController = require("./user/reservationsController");
 
 
 
-module.exports = { register, login,cities};
+module.exports = { register, login, cities, adventuresController,reservationsController };

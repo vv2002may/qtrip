@@ -1,5 +1,5 @@
-const { loginZod, User } = require("../models");
-const { jwtSign } = require("../services/jwtToken");
+const { loginZod, User } = require("../../models");
+const { jwtSign } = require("../../services/jwtToken");
 
 const login = async (req, res) => {
   const { email, password } = req.body;

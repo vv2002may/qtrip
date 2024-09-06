@@ -2,21 +2,29 @@ const { User } = require("../models");
 const { jwtVerify } = require("../services/jwtToken");
 
 
-const userAuth = async(req, res, next) => {
+const userAuth = async (req, res, next) => {
    try {
-      const authHeader = req.headers.Authorization;
+      const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(" ")[1];
       if (token) {
-         // needs to be corrected
-         const userId = jwtVerify({ token });
-         const user = await User.findOne({ _id: userId });
-         if (user) {
-            next();
+         const decoded = jwtVerify({ token });
+         if (decoded.userId) {
+            const user = await User.findOne({ _id: decoded.userId });
+            if (user) {
+               req.headers.userId =decoded.userId;
+               next();
+            }
+            else {
+               return res.json({
+                  success: false,
+                  message: "User does not exist"
+               })
+            }
          }
          else {
             return res.json({
                success: false,
-               message:"User does not exist"
+               message: "Please, sign in again!"
             })
          }
       }

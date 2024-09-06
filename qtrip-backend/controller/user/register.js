@@ -1,4 +1,4 @@
-const { registerZod, User } = require("../models");
+const { registerZod, User } = require("../../models");
 
 
 const register = async (req, res) => {
