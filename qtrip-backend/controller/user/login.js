@@ -6,15 +6,15 @@ const login = async (req, res) => {
 
   const payload = loginZod.safeParse(req.body);
   if (payload.success) {
+
     const user = await User.findOne({ email });
     if (user) {
       if (user.password == password) {
         return res.status(201).json({
           success: true,
-          data: {
-            token: jwtSign({ userId: user._id }),
-            id: user._id,
-          },
+          message: "Logged In Successfully!",
+          token: jwtSign({ userId: user._id }),
+          id: user._id,
         });
       } else {
         return res.status(403).json({
@@ -25,7 +25,7 @@ const login = async (req, res) => {
     } else {
       return res.status(404).json({
         success: false,
-        message: "Email does not exist!",
+        message: "User does not exist!",
       });
     }
   } else {

@@ -22,18 +22,24 @@ const userAuth = async (req, res, next) => {
             }
          }
          else {
-            return res.json({
+            return res.status(400).json({
                success: false,
                message: "Please, sign in again!"
             })
          }
       }
       else {
-         return "Token is not provided";
+         return res.status(400).json({
+            success: false,
+            message: "Token is not provided"
+         })
       }
    }
    catch (err) {
-      return "Some error occured while authentication!";
+      return res.status(400).json({
+         success: false,
+         message: "Some error occured while authentication!"
+      })
    }
 }
 

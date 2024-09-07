@@ -16,7 +16,7 @@ export default function Adventures() {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 bg-slate-300 ">
+    <div className="grid grid-cols-4 ">
       {adventures.map((adventure, index) => {
         return <Adventure key={index} adventure={adventure} />;
       })}

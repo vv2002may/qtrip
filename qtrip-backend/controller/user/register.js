@@ -2,7 +2,7 @@ const { registerZod, User } = require("../../models");
 
 
 const register = async (req, res) => {
-   const { email, password, confirmpassword } = req.body;
+   const { email, password, confirmPassword } = req.body;
    const payload = registerZod.safeParse(req.body);
    if (payload.success) {
       const user = await User.findOne({ email });
@@ -12,7 +12,7 @@ const register = async (req, res) => {
             message: "Email already exists",
          });
       } else {
-         if (password != confirmpassword) {
+         if (password != confirmPassword) {
             return res.status(400).json({
                success: false,
                message: "Password & confirm password doesn't match",
@@ -23,13 +23,15 @@ const register = async (req, res) => {
             await newUser.save();
             return res.status(201).json({
                success: true,
+               token: jwtSign({ userId: newUser._id }),
+               id: newUser._id,
                message: 'You have registered successfully!',
             })
          }
       }
    }
    else {
-      if (password.length < 6) {
+      if (password && password.length < 6) {
          return res.status(400).json({
             success: false,
             message: "Password must be atleast 6 in length",

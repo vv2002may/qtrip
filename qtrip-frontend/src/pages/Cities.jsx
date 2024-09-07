@@ -16,7 +16,7 @@ export default function Cities() {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 bg-slate-300 ">
+    <div className="grid grid-cols-4  ">
       {cities.map((city, index) => {
         return <City key={index} city={city} />;
       })}

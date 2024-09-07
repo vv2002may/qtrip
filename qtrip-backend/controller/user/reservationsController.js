@@ -5,11 +5,8 @@ const reservationsController = {
 
    async reservations(req, res) {
       try {
-         const reserv = await reservationsData.find();
-         return res.status(200).json({
-            success: true,
-            data: reserv
-         })
+         const reserv = await reservationsData.find({ userId: req.headers.userId }).populate('adventureId');
+         return res.status(200).json(reserv);
 
       }
       catch (err) {
