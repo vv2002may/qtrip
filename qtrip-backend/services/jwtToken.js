@@ -6,7 +6,7 @@ const jwtSign = ({userId}) => {
 }
 
 const jwtVerify = ({token}) => {
-   const decoded = jwt.verify(token, JWT_SECRET);
+   const decoded = jwt.decode(token, JWT_SECRET);
    return decoded;
 }
 

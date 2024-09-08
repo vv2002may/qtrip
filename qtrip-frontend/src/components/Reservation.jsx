@@ -1,6 +1,54 @@
-export default function Reservation({ reservation }) {
+import { ENDPOINT } from "../config/endpoint";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+export default function Reservation({ reservation, fetchReservations }) {
+  const navigate = useNavigate();
+
+  async function handleCancel() {
+    await axios
+      .post(
+        ENDPOINT + "/reservations/cancel",
+        {
+          reservationsId: reservation._id,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((result) => {
+        fetchReservations();
+        toast.success(result.data.message);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
+  }
+
+  async function handleDelete() {
+    await axios
+      .delete(ENDPOINT + "/reservations/delete", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        data: {
+          reservationsId: reservation._id,
+        },
+      })
+      .then((result) => {
+        fetchReservations();
+        toast.success(result.data.message);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
+  }
+
   return (
-    <div className="flex flex-col justify-between shadow-lg bg-slate-200 text-white font-extralight m-[5%] p-[1%] h-[30.5rem] rounded">
+    <div className="flex flex-col justify-between shadow-lg bg-slate-200 text-white font-extralight m-[5%] p-[1%] h-[97%] rounded">
       <img
         className="h-[250px] w-[500px] rounded "
         src={reservation.adventureId.image}
@@ -18,9 +66,26 @@ export default function Reservation({ reservation }) {
           /person
         </p>
         <p>Person : {reservation.person}</p>
-        <p>isCancelled : {reservation.isCancelled ? "True" : "False"}</p>
+        <p className="bg-orange-600 rounded p-1">
+          Booking Status : {reservation.isCancelled ? "Cancelled" : "Confirmed"}
+        </p>
       </div>
-      <button className="bg-black p-1">Delete</button>
+      <button
+        className="bg-black p-1 rounded"
+        onClick={() => {
+          handleCancel();
+        }}
+      >
+        {reservation.isCancelled ? "Book Again" : "Cancel Booking"}
+      </button>
+      <button
+        className="bg-black p-1 rounded"
+        onClick={() => {
+          handleDelete();
+        }}
+      >
+        Delete
+      </button>
     </div>
   );
 }

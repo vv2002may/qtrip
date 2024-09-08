@@ -7,7 +7,7 @@ export default function Navbar() {
   const token = localStorage.getItem("token");
 
   return (
-    <div className="flex justify-between items-center text-white text-[1.5vmax] font-medium bg-orange-500 p-[1%]">
+    <div className="flex justify-between items-center text-white text-[1.5vmax] font-medium bg-orange-500 p-[.6%]">
       <div className="flex justify-around w-[10%]">
         <button
           className="hover:bg-green-700 p-2 rounded-lg"

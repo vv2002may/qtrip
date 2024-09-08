@@ -6,18 +6,24 @@ const userAuth = async (req, res, next) => {
    try {
       const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(" ")[1];
-      if (token) {
+      if (token!="null") {
          const decoded = jwtVerify({ token });
          if (decoded.userId) {
+            if (Date.now() >= decoded.exp * 1000) {
+               return res.status(400).json({
+                  success: false,
+                  message: "Session expired!"
+               })
+             }
             const user = await User.findOne({ _id: decoded.userId });
             if (user) {
-               req.headers.userId =decoded.userId;
+               req.headers.userId = decoded.userId;
                next();
             }
             else {
-               return res.json({
+               return res.status(400).json({
                   success: false,
-                  message: "User does not exist"
+                  message: "User does not exist!"
                })
             }
          }
@@ -31,7 +37,7 @@ const userAuth = async (req, res, next) => {
       else {
          return res.status(400).json({
             success: false,
-            message: "Token is not provided"
+            message: "Token is not provided!"
          })
       }
    }

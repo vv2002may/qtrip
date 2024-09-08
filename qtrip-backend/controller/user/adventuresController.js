@@ -2,9 +2,10 @@ const {adventuresData}=require('../../models')
 
 
 const adventuresController = {
-   async adventures (req, res)  {
+   async adventures(req, res) {
       try {
-         const { city,q } = req.query;
+         const { city, q } = req.query;
+         
          if (city && city.length < 3) {
             return res.status(404).json({
                success: false,
@@ -24,13 +25,13 @@ const adventuresController = {
          else {
             return res.status(400).json({
                success: false,
-               message:`Adventure not found for ${city}!`
+               message:`Currently, adventures for ${city} is not available!`
             })
          }
       }
       catch (err) {
          return res.json({
-            message:"Some error occured while fetching adventures!"+err,
+            message:"Some error occured while fetching adventures!",
          })
       }
    },
@@ -48,7 +49,7 @@ const adventuresController = {
          else {
             return res.json({
                success: false,
-               message:`Adventure details not found for ${adventure}`,
+               message:`Adventure for ${adventure} is no longer available!`,
             })
          }
       }
