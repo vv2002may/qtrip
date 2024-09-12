@@ -2,17 +2,20 @@ import { useForm } from "react-hook-form";
 import { ENDPOINT } from "../config/endpoint";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   async function handleForm(formData) {
     await axios
       .post(ENDPOINT + "/register", formData)
       .then((result) => {
-        //   console.log(result.data);
+          console.log(result);
         toast.success(result.data.message);
         localStorage.setItem("token", result.data.token);
+        navigate('/');
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -50,7 +53,7 @@ export default function Signup() {
           className="p-2 rounded bg-sky-200 border-solid border-2 border-sky-500 m-2 outline-none "
           type="submit"
         >
-          Sign In
+          Sign Up
         </button>
       </form>
     </div>

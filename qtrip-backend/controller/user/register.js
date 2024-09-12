@@ -1,4 +1,5 @@
 const { registerZod, User } = require("../../models");
+const { jwtSign } = require("../../services/jwtToken");
 
 
 const register = async (req, res) => {
