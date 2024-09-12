@@ -21,7 +21,7 @@ const register = async (req, res) => {
          else {
             const newUser = new User({ email, password });
             await newUser.save();
-            return res.status(201).json({
+            return res.status(200).json({
                success: true,
                token: jwtSign({ userId: newUser._id }),
                id: newUser._id,
