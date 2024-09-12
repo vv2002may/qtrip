@@ -17,6 +17,40 @@ const reservationsController = {
       }
    },
 
+   async reservationsAdd(req, res) {
+      try {
+         // increase person if same adventure added again
+         const { reservationsId, addPerson } = req.body;
+         const isReserve = await reservationsData.findOne({ _id: reservationsId })
+         if (isReserve) {
+            if (addPerson) { isReserve.person = isReserve.person + 1; }
+            else {
+               isReserve.person = isReserve.person - 1;
+               if (isReserve.person == 0) {
+                  await isReserve.deleteOne();
+                  return res.status(200).json({
+                     success: true,
+                     message: "Adventure deleted!",
+                  }) 
+               }
+            }
+            await isReserve.save();
+            return res.status(200).json({
+               success: true,
+               message: "Person updated!",
+            })
+         }
+
+      }
+      catch (err) {
+         return res.status(400).json({
+            success: false,
+            message: "Some error occured while adding persons!"+err
+         })
+      }
+
+   },
+
    async reservationsNew(req, res) {
       try {
          const { adventureId } = req.body;

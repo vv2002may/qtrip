@@ -1,36 +1,39 @@
-import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
 
-export default function DropDown() {
+export default function DropDown({ setShow }) {
   const navigate = useNavigate();
 
   return (
-    <Dropdown >
-      <Dropdown.Toggle className="hover:bg-green-700 p-2 rounded-lg" variant="success" id="dropdown-basic">
-        User
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu rootCloseEvent={"click"} className="flex flex-col bg-orange-500 backdrop-blur rounded-lg p-2">
-        <Dropdown.Item
-          className=" hover:bg-green-700 p-2 rounded-lg"
+    <div
+      className=" absolute top-[8%]   right-[1%]   rounded-md "
+      onBlur={() => setShow(false)}
+    >
+      <div className=" p-3 flex flex-col justify-between items-start text-white bg-orange-500 rounded-md m-1">
+        <button
+          className="hover:bg-green-700 p-2 text-[1.5vmax] rounded-lg"
           onClick={() => {
-            //  navigate("/reservations");
-             window.location.href = "/reservations";
+            navigate("/reservations");
+            setTimeout(() => {
+              setShow(false);
+            }, 100);
           }}
         >
           Reservations
-        </Dropdown.Item>
-        <Dropdown.Item
-          className=" hover:bg-green-700 p-2 rounded-lg"
+        </button>
+        <button
+          className="hover:bg-green-700 p-2 text-[1.5vmax] rounded-lg"
           onClick={() => {
             localStorage.clear();
-             // navigate("/");
-             window.location.href = "/";
+            navigate("/");
+            setTimeout(() => {
+              setShow(false);
+            }, 100);
           }}
         >
           Sign Out
-        </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+        </button>
+      </div>
+    </div>
   );
 }

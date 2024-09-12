@@ -16,7 +16,7 @@ export default function App() {
       <BrowserRouter>
         <Navbar />
         <ToastContainer
-          position="top-center"
+          position="bottom-right"
           autoClose={2000}
           closeOnClick
           draggable

@@ -12,6 +12,7 @@ userRouter.get('/adventures', adventuresController.adventures);
 userRouter.get('/adventures/details', adventuresController.adventuresDetails);
 userRouter.get('/reservations', userAuth, reservationsController.reservations);
 userRouter.post('/reservations/new', userAuth, reservationsController.reservationsNew);
+userRouter.post('/reservations/add', userAuth, reservationsController.reservationsAdd);
 userRouter.post('/reservations/cancel', userAuth, reservationsController.reservationsCancel);
 userRouter.delete('/reservations/delete', userAuth, reservationsController.reservationsDelete);
 

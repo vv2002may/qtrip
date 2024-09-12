@@ -40,10 +40,10 @@ export default function Adventure({ adventure}) {
     <div className="flex flex-col justify-between shadow-lg bg-slate-100 text-white text-[1.2vmax] font-[400] m-[5%] p-[1%] h-[23.5rem] rounded">
       {show && (
         <div
-          className="fixed top-[10%] left-[17%] right-[19%] h-[70vh] backdrop-blur-lg rounded-md overflow-auto p-2"
+          className="fixed top-[10%] left-[17%] right-[19%] h-[63vh] backdrop-blur-lg rounded-md overflow-auto p-2"
           tabIndex={0}
           ref={modalRef}
-          onBlur={() => setShow(false)}
+          onBlur={() => {setShow(false)}}
         >
           <div className="flex justify-between items-center bg-slate-300 rounded-md text-black m-1">
             <p className="ml-7 text-[1.7vmax]">Adventure : {" "+ adventure.name}</p>
@@ -71,12 +71,12 @@ export default function Adventure({ adventure}) {
                 Price : {adventure.costPerHead + " " + adventure.currency}
                 /person
               </p>
-              <button
+              {/* <button
                 className="bg-black text-white rounded p-1"
                 onClick={handleCart}
               >
                 Make Reservation
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

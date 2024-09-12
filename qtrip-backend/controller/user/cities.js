@@ -19,7 +19,7 @@ const cities = async (req, res) => {
       }
       else {
          return res.status(400).json({
-            message: `City not found for ${q}!`,
+            message: `Currently, City not found for ${q}!`,
          });
       }
    }

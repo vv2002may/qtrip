@@ -47,6 +47,31 @@ export default function Reservation({ reservation, fetchReservations }) {
       });
   }
 
+  async function handlePerson({ addPerson }) {
+    await axios
+      .post(
+        ENDPOINT + "/reservations/add",
+        {
+          reservationsId: reservation._id,
+          addPerson,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((result) => {
+        fetchReservations();
+        toast.success(result.data.message);
+      })
+      .catch((err) => {
+        toast.error(
+          err.response.data.message + " Please, try again after signin!"
+        );
+      });
+  }
+
   return (
     <div className="flex flex-col justify-between shadow-lg bg-slate-200 text-white font-extralight m-[5%] p-[1%] h-[97%] rounded">
       <img
@@ -65,7 +90,24 @@ export default function Reservation({ reservation, fetchReservations }) {
             reservation.adventureId.currency}
           /person
         </p>
-        <p>Person : {reservation.person}</p>
+        <p className="flex justify-start items-center">
+          Person :{" "}
+          <button
+            className=" flex justify-center items-center bg-orange-600 rounded font-bold p-2 m-2 h-7"
+            onClick={()=>handlePerson({addPerson:true})}
+          >
+          ＋
+          </button>
+          {reservation.person}
+          <button
+            className=" flex justify-center items-center bg-orange-600 rounded font-bold p-2 m-2 h-7"
+            onClick={()=>handlePerson({addPerson:false})}
+          >
+            －
+          </button>
+        </p>
+        <p>Total price : { reservation.person*reservation.adventureId.costPerHead +" "+
+            reservation.adventureId.currency} </p>
         <p className="bg-orange-600 rounded p-1">
           Booking Status : {reservation.isCancelled ? "Cancelled" : "Confirmed"}
         </p>
