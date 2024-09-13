@@ -1,0 +1,25 @@
+# use "rest client" extension to test these apis
+
+# variables
+@baseUrl=http://localhost:3000/api/v1
+@jwtToken=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmQ3NWRiZGM0Mzg0YWQ5ZjA4M2Y0MjUiLCJpYXQiOjE3MjYyMjA2MjQsImV4cCI6MTcyNjIzODYyNH0.fNDXBKjTvKBkKlcXqF_eolMrx0YnVUgIbw40QsRud0U
+@userId=66d75dbdc4384ad9f083f425
+
+
+### fetch cities list
+GET {{baseUrl}}/cities
+
+### fetch adventures list
+GET {{baseUrl}}/adventures
+
+### login
+POST http://localhost:3000/api/v1/login
+Content-Type: application/json
+
+{
+   "email": "s@gmail.com",
+   "password": "s@gmail.com"
+}
+### fetch reservations list
+GET {{baseUrl}}/reservations
+Authorization: {{jwtToken}}

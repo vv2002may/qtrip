@@ -3,6 +3,7 @@ const { jwtSign } = require("../../services/jwtToken");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  // console.log(req.body);
 
   const payload = loginZod.safeParse(req.body);
   if (payload.success) {
