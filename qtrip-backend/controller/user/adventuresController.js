@@ -4,20 +4,23 @@ const { adventuresData } = require('../../models')
 const adventuresController = {
    async adventures(req, res) {
       try {
-         const { q } = req.query;
+         const {city, q } = req.query;
          if (q && q.length < 3) {
             return res.status(404).json({
                success: false,
                message: `Adventure Query length should be atleast 3! Currently it is only ${q.length} `
             })
          }
+         console.log(city);
          const adventure = await adventuresData.find({
-            $or: [{
+            $and: [{
+               city: new RegExp(city, 'i')
+            },{
                name: new RegExp(q, 'i')
             }]
          });
          if (adventure.length) {
-            return res.json(adventure)
+            return res.json(adventure);
          }
          else {
             return res.status(400).json({

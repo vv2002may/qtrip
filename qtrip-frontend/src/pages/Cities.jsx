@@ -17,6 +17,7 @@ export default function Cities() {
       })
       .catch((err) => {toast.error(err.response.data.message)});
   }
+  
 
   useEffect(() => {
     fetchCities({});
