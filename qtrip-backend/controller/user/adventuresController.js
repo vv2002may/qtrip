@@ -25,7 +25,7 @@ const adventuresController = {
          else {
             return res.status(400).json({
                success: false,
-               message: `Adventures not found for ${q}!`
+               message: `Adventures not found for ${city?city:q}!`
             })
          }
       }
