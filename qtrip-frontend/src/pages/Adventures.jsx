@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export default function Adventures() {
   const [adventures, setAdventures] = useState([]);
   const { register, handleSubmit } = useForm();
+  
 
   async function fetchAdventures(formData) {
     await axios
